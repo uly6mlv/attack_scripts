@@ -24,6 +24,35 @@ attack_type_text = '\n<Attack Types>\n' \
                    '0. QUIT\n' \
                    'Select one of attack types: '
 
+attack_target_text = '\n<Attack Target>\n' \
+                   '1. Smartphone 1\n' \
+                   '2. Smartphone 2\n' \
+                   '3. Smart Clock 1\n' \
+                   '4. Google Nest Mini 1\n' \
+                   '5. Google Nest Mini 2\n' \
+                   '6. Smart TV\n' \
+                   '7. Lenovo Bulb 1\n' \
+                   '8. Lenovo Bulb 2\n' \
+                   '9. Cam 1\n' \
+                   '10. Cam 2\n' \
+                   '11. Smart Plug 1\n' \
+                   '12. Smart Plug 2\n' \
+                   '13. Raspberry Pi (Telnet Brute-force)\n' \
+                   'Select one of the attack targets: '
+
+IP_DICT = {1:"192.168.0.101",
+           2:"192.168.0.102",
+           3:"192.168.0.111",
+           4:"192.168.0.121",
+           5:"192.168.0.122",
+           6:"192.168.0.131",
+           7:"192.168.0.141",
+           8:"192.168.0.142",
+           9:"192.168.0.151",
+           10:"192.168.0.152",
+           11:"192.168.0.161",
+           12:"192.168.0.162",
+           13:"192.168.0.191",}
 
 def launch_attack(selection, target_ip, intensity=None):
     if selection in [1, 2, 3]:
@@ -147,7 +176,13 @@ if __name__ == '__main__':
     if os.getuid() != 0:
         exit('Please run this script as root user. Type "su root" to switch to root.')
 
-    target = input('Type IP address of the target device: ')
+    target_selection = input(attack_target_text)
+    while target_selection not in range(1, 14):
+        try:
+            target_selection = int(target_selection)  # 문자열을 정수로 변환
+        except ValueError:  # 입력값이 정수로 나타낼 수 없는 경우 에러 발생
+            target_selection = input('> Wrong input. Please try again: ')
+    target = IP_DICT[target_selection]
     while not check_ip_format(target):
         target = input('> Please try again: ')
     while run_type_A(target):     # 0. QUIT 을 입력할 때까지 반복
