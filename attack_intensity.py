@@ -12,6 +12,7 @@ try:
         response=ping(host_ip, count=1, timeout=response_time, verbose=False)
         rtt.append(response.rtt_avg_ms)
         time.sleep(response_time)
+        print(response.rtt_avg_ms)
 except KeyboardInterrupt as e:
     plt.plot(rtt)
     plt.savefig('pings.png')
