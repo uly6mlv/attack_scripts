@@ -55,7 +55,7 @@ IP_DICT = {1:"192.168.0.101",
            12:"192.168.0.162",
            13:"192.168.0.191",}
 
-def launch_attack(selection, target_ip, intensity=None):
+def launch_attack(selection, target_ip, intensity=None, pps=None, time=None):
     if selection in [1, 2, 3]:
         if not intensity:
             intensity = random.randrange(2, 5) ######### need to change
@@ -71,8 +71,8 @@ def launch_attack(selection, target_ip, intensity=None):
     elif selection == 5:  ##### need to add open ports first
         # pps = random.randrange(100, 501)    # 초당 전송할 패킷 개수
         # time = random.randrange(5, 31)      # 공격 유지 시간
-        pps=14000
-        time=30
+        # pps=14000
+        # time=30
         count = pps * time                  # 총 공격 패킷 수
         if target_ip in open_ports.keys():
             port = random.choice(open_ports[target_ip])  # 기기별 열린 포트 중 하나 선택
@@ -100,8 +100,8 @@ def launch_attack(selection, target_ip, intensity=None):
 
     elif selection == 7:
         # target_ip = '192.168.10.23'         # some web server
-        pps = random.randrange(100, 1001)   # 초당 전송할 패킷 개수
-        time = random.randrange(10, 31)     # 공격 유지 시간
+        # pps = random.randrange(100, 1001)   # 초당 전송할 패킷 개수
+        # time = random.randrange(10, 31)     # 공격 유지 시간
         count = pps * time                  # 총 공격 패킷 수
         byte = random.randrange(50, 201)    # 데이터 크기
         port_type = random.randrange(1, 2)  # udp flood는 타입이 2가지 - 1) 타겟 포트 고정, 2) 타겟 포트 랜덤
@@ -109,8 +109,8 @@ def launch_attack(selection, target_ip, intensity=None):
 
     elif selection in [8, 9]:
         # target_ip = '192.168.10.23'         # some web server
-        pps = random.randrange(100, 501)    # 초당 전송할 패킷 개수
-        time = random.randrange(10, 31)     # 공격 유지 시간
+        # pps = random.randrange(100, 501)    # 초당 전송할 패킷 개수
+        # time = random.randrange(10, 31)     # 공격 유지 시간
         count = pps * time                  # 총 공격 패킷 수
         port = 80
         if selection == 8:
@@ -158,6 +158,7 @@ def run_type_A(target_ip: str):
     ntimes = input('How many times to repeat the selected attack: ')
     if ntimes > 1:
         sleep_time = input('What is the sleep time in sec between attacks?')
+        sleep_time = int(sleep_time)
     while True:
         try:
             ntimes = int(ntimes)
@@ -178,8 +179,11 @@ def run_type_A(target_ip: str):
         print(f'\n============ Attack try #{n} ============')
         if selection in [1, 2, 3]:
             launch_attack(selection, target_ip=target_ip, intensity=intensity_list.pop(0))
-        elif selection in [6, 7, 8, 9]:
-            launch_attack(selection, target_ip=target_ip)
+        elif selection in [5, 7, 8, 9]:
+            pps = input('How many packet per second(pps) is send for flooding attacks? (e.g. 14000)')
+            time = input('How long does each attack last (in sec)?')
+            pps, time = int(pps), int(time)
+            launch_attack(selection, target_ip=target_ip, pps=pps, time=time)
         else:
             launch_attack(selection, target_ip=target_ip)
         if n < ntimes:
