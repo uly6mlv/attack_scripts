@@ -156,6 +156,8 @@ def run_type_A(target_ip: str):
         return False
 
     ntimes = input('How many times to repeat the selected attack: ')
+    if ntimes > 1:
+        sleep_time = input('What is the sleep time in sec between attacks?')
     while True:
         try:
             ntimes = int(ntimes)
@@ -181,7 +183,7 @@ def run_type_A(target_ip: str):
         else:
             launch_attack(selection, target_ip=target_ip)
         if n < ntimes:
-            sleep_time = random.randrange(10, 60)   ##### need to change
+            # sleep_time = random.randrange(10, 60)   ##### need to change
             print(f'Sleeping for {sleep_time}s...')
             sleep(sleep_time)  # 공격 사이에 랜덤하게 쉬기
 
