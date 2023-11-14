@@ -13,12 +13,15 @@ victim_ip='192.168.0.131'
 attacker_count=0
 other_count=0
 
-for pkt in iterable:
-    if pkt.haslayer(IP):
-        if pkt[IP].dst == victim_ip:
-            if pkt[IP].src == attacker_ip:
-                attacker_count+=1
-            else:
-                other_count+=1
+try:
+    for pkt in iterable:
+        if pkt.haslayer(IP):
+            if pkt[IP].dst == victim_ip:
+                if pkt[IP].src == attacker_ip:
+                    attacker_count+=1
+                else:
+                    other_count+=1
+except KeyboardInterrupt as e:
+    pass 
 
 print("occupied bandwidth", attacker_count/(attacker_count+other_count))

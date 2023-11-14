@@ -114,7 +114,8 @@ def syn_flood(dstIP, dstPort, pps, count):
 
 
 # hping3 사용
-def udp_flood(dstIP, dstPort_type, pps, count, byte):
+def udp_flood(dstIP, dstPort_type, pps, count):
+    byte = 60    # 데이터 크기
     print('[UDP Flooding]')
     if dstPort_type == 1:   # http port
         dstPort = 80
