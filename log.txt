@@ -304,3 +304,18 @@
 (2023-11-09 14:51:27) type=SYN Flooding;port=11859;pps=14000;count=420000;; Start
 (14:51:27) sudo hping3 192.168.0.131 -i u71 -S -p 11859 -c 420000 -q
 (2023-11-09 14:51:39) type=SYN Flooding; End
+(2023-11-14 11:45:43) type=SYN Flooding;port=63448;pps=3600;count=108000;; Start
+(11:45:43) sudo hping3 192.168.0.111 -i u278 -S -p 63448 -c 108000 -q
+(2023-11-14 11:46:17) type=SYN Flooding; End
+(2023-11-14 11:46:31) type=SYN Flooding;port=50899;pps=4000;count=120000;; Start
+(11:46:31) sudo hping3 192.168.0.111 -i u250 -S -p 50899 -c 120000 -q
+(2023-11-14 11:47:05) type=SYN Flooding; End
+(2023-11-14 11:47:17) type=Port Scanning;intensity=3;; Start
+(11:47:17) sudo nmap -Pn -sS 192.168.0.111 -T3
+(2023-11-14 11:47:18) type=Port Scanning; End
+(2023-11-14 11:47:23) type=Service Detection;intensity=3;; Start
+(11:47:23) sudo nmap -sS -sV -O 192.168.0.111 -T3
+(2023-11-14 11:49:28) type=Service Detection; End
+(2023-11-14 11:50:12) type=SYN Flooding;port=15750;pps=14000;count=308000;; Start
+(11:50:12) sudo hping3 192.168.0.111 -i u71 -S -p 15750 -c 308000 -q
+(2023-11-14 11:50:39) type=SYN Flooding; End
