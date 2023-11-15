@@ -40,6 +40,19 @@ attack_target_text = '\n<Attack Target>\n' \
                    '12. Smart Plug 2\n' \
                    '13. Raspberry Pi (Telnet Brute-force)\n' \
                    'Select one of the attack targets: '
+TARGET_DICT={1:"Smartphone 1",
+           2:"Smartphone 2",
+           3:"Smart Clock 1",
+           4:"Google Nest Mini 1",
+           5:"Google Nest Mini 2",
+           6:"Smart TV",
+           7:"Lenovo Bulb 1",
+           8:"Lenovo Bulb 2",
+           9:"Cam 1",
+           10:"Cam 2",
+           11:"Smart Plug 1",
+           12:"Smart Plug 2",
+           13:"Raspberry Pi"}
 
 IP_DICT = {1:"192.168.0.101",
            2:"192.168.0.102",
@@ -54,6 +67,7 @@ IP_DICT = {1:"192.168.0.101",
            11:"192.168.0.161",
            12:"192.168.0.162",
            13:"192.168.0.191",}
+
 ATK_DICT={1:host_discovery,
           2:port_scanning,
           3:os_and_service_detection,
@@ -64,7 +78,11 @@ ATK_DICT={1:host_discovery,
           8:http_flood,
           9:ack_flood}
 
-def launch_attack(selection, target_ip, intensity=None, pps=None, time=None):
+def launch_attack(selection, target_ip, intensity=None, pps=None, time=30):
+    if isinstance(target_ip, int):
+        device=TARGET_DICT[target_ip]
+        target_ip=IP_DICT[target_ip]
+
     if not intensity:
         intensity = random.randrange(2, 5) ######### need to change
 
@@ -80,28 +98,29 @@ def launch_attack(selection, target_ip, intensity=None, pps=None, time=None):
         args=(target_ip, '192.168.0.1', runtime)
     elif selection in [5,7,8,9]:
         count = pps * time 
+        port=80
         if selection == 5:
             if target_ip in open_ports.keys():
                 port = random.choice(open_ports[target_ip])  # 기기별 열린 포트 중 하나 선택
             else:
                 port = random.randrange(1, 65536)   # 열린 포트 정보가 없다면 랜덤 지정
         elif selection ==7:
-            port = random.randrange(1, 2)
+            port = 2
+        
 
         args=(target_ip, port, pps, count)
         
-    t1 = ThreadWithReturnValue(target=calc_flooding_intensity, args=(time,target_ip))
+    t1 = ThreadWithReturnValue(target=measure_response, args=(time, target_ip))
     t2 = threading.Thread(target=attack, args=args)
     t1.start()
     # starting thread 2
     t2.start()
 
     # wait until thread 1 is completely executed
-    rtt=t1.join()
+    rtt, percent_time=t1.join()
     # wait until thread 2 is completely executed
     t2.join()
-    plt.plot(rtt)
-    plt.savefig("pings.png")
+    return device, attack.__name__, rtt, percent_time
 
 def check_ip_format(ip):
     correct_ip = True
