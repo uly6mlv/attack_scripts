@@ -82,6 +82,8 @@ def launch_attack(selection, target_ip, intensity=None, pps=None, time=30):
     if isinstance(target_ip, int):
         device=TARGET_DICT[target_ip]
         target_ip=IP_DICT[target_ip]
+    else:
+        device=target_ip
 
     if not intensity:
         intensity = random.randrange(2, 5) ######### need to change
