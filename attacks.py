@@ -25,6 +25,22 @@ def host_discovery(target_ip, intensity):
 
     log('End', attack_type='Host Discovery')
 
+def tcp_replay(pcap_file, loop=1):
+    print('[TCP Replay]')
+    log('Start', attack_type='TCP replay', param_info={'pcap_file': pcap_file, 'loop':loop})
+
+    
+    attack_command=f'sudo tcpreplay -i eth0 -K --loop {loop} {pcap_file}'
+    attack_command_list_form = attack_command.split(' ')
+
+    log('Mid', attack_command)
+    p = subprocess.Popen(attack_command_list_form, stdout=subprocess.PIPE, preexec_fn=os.setsid)
+    outs, errs = p.communicate()
+    p.kill()
+    print(outs)
+    print(errs)
+
+    log('End', attack_type='TCP replay')
 
 # Stealth Scan을 사용
 def port_scanning(target_ip, intensity):

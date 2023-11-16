@@ -76,30 +76,28 @@ ATK_DICT={1:host_discovery,
           6:scan_brute_force,
           7:udp_flood,
           8:http_flood,
-          9:ack_flood}
+          9:ack_flood,
+          10:tcp_replay}
 
-def launch_attack(selection, target_ip, intensity=None, pps=None, time=30):
+def launch_attack(selection, target_ip, **atk_kwargs):
     if isinstance(target_ip, int):
         device=TARGET_DICT[target_ip]
         target_ip=IP_DICT[target_ip]
     else:
         device=target_ip
 
-    if not intensity:
-        intensity = random.randrange(2, 5) ######### need to change
-
     attack=ATK_DICT[selection]
     
     if selection ==1:
-        args=('192.168.0.0/24', intensity)
+        args=('192.168.0.0/24', atk_kwargs['intensity'])
     elif selection in [2,3]:
-        args=(target_ip, intensity)
+        args=(target_ip, atk_kwargs['intensity'])
 
     elif selection ==4:
         runtime = random.randrange(10, 61)
         args=(target_ip, '192.168.0.1', runtime)
     elif selection in [5,7,8,9]:
-        count = pps * time 
+        count = atk_kwargs['pps'] * atk_kwargs['time'] 
         port=80
         if selection == 5:
             if target_ip in open_ports.keys():
@@ -109,10 +107,11 @@ def launch_attack(selection, target_ip, intensity=None, pps=None, time=30):
         elif selection ==7:
             port = 2
         
-
-        args=(target_ip, port, pps, count)
+        args=(target_ip, port, atk_kwargs['pps'], count)
+    elif selection == 10:
+        args=(atk_kwargs["pcap"], atk_kwargs["loop"])
         
-    t1 = ThreadWithReturnValue(target=measure_response, args=(time, target_ip))
+    t1 = ThreadWithReturnValue(target=measure_response, args=(atk_kwargs['time'], target_ip))
     t2 = threading.Thread(target=attack, args=args)
     t1.start()
     # starting thread 2

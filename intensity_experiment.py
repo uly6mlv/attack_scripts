@@ -17,19 +17,21 @@ attacks=[9,5]
 
 
 
-with open('attack_response.csv','w') as f:
-    f.write("device,attack,intensity,average rtt,loss\n")
-    for t in target:
-        for a in attacks:
-            intensity=3000
-            percent_time=0
-            while percent_time<0.98:
-                print(f"attacking {TARGET_DICT[t]} with {ATK_DICT[a].__name__} @ {intensity}")
-                device, attack, rtt, percent_time=launch_attack(a, t, pps=intensity, time=30)
-                f.write(f"{device},{attack},{intensity},{np.mean(rtt)},{percent_time}\n")
+# with open('attack_response.csv','w') as f:
+#     f.write("device,attack,intensity,average rtt,loss\n")
+#     for t in target:
+#         for a in attacks:
+#             intensity=3000
+#             percent_time=0
+#             while percent_time<0.98:
+#                 print(f"attacking {TARGET_DICT[t]} with {ATK_DICT[a].__name__} @ {intensity}")
+#                 device, attack, rtt, percent_time=launch_attack(a, t, pps=intensity, time=30)
+#                 f.write(f"{device},{attack},{intensity},{np.mean(rtt)},{percent_time}\n")
 
-                print(f"{device},{attack},{intensity},{np.mean(rtt)},{percent_time}")
-                intensity+=500
-                #wait for flooding to finish
-                time.sleep(20)
+#                 print(f"{device},{attack},{intensity},{np.mean(rtt)},{percent_time}")
+#                 intensity+=500
+#                 #wait for flooding to finish
+#                 time.sleep(20)
 
+device, attack, rtt, percent_time=launch_attack(10, 6, pcap="../SmartTV_SYN_Flooding_iter_0.pcap", loop=1, time=30)
+print(device, attack, rtt, percent_time)
