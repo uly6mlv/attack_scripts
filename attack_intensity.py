@@ -29,7 +29,15 @@ def measure_response(duration, host_ip):
     response_time=0.1
     rtt=[]
     start_time=time.time()
-    while True:
+
+    if isinstance(duration, threading.Event):
+        def loop_cond():
+            return not duration.is_set()
+    else:
+        def loop_cond():
+            return time.time() - start_time >= duration
+
+    while loop_cond():
         ping_thread=ThreadWithReturnValue(target=ping_wrapper, args=(host_ip, 1, response_time, False))
         ping_thread.start()
         av_rt=ping_thread.join(response_time)
@@ -40,8 +48,6 @@ def measure_response(duration, host_ip):
 
         time.sleep(max(0,(response_time-av_rt/1000.)))
         
-        if time.time() - start_time >= duration:
-            break
     rtt=np.array(rtt)
     not_responding=np.count_nonzero((response_time*1000-rtt)<1e-4)
     percent_time=not_responding/len(rtt)

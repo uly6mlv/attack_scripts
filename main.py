@@ -79,6 +79,10 @@ ATK_DICT={1:host_discovery,
           9:ack_flood,
           10:tcp_replay}
 
+def attack_wrapper(attack, args, event):
+    attack(*args)
+    event.set()
+
 def launch_attack(selection, target_ip, **atk_kwargs):
     if isinstance(target_ip, int):
         device=TARGET_DICT[target_ip]
@@ -111,8 +115,10 @@ def launch_attack(selection, target_ip, **atk_kwargs):
     elif selection == 10:
         args=(atk_kwargs["pcap"], atk_kwargs["loop"])
         
-    t1 = ThreadWithReturnValue(target=measure_response, args=(atk_kwargs['time'], target_ip))
-    t2 = threading.Thread(target=attack, args=args)
+
+    notification_event = threading.Event()
+    t1 = ThreadWithReturnValue(target=measure_response, args=(notification_event, target_ip))
+    t2 = threading.Thread(target=attack_wrapper, args=(attack, args, notification_event))
     t1.start()
     # starting thread 2
     t2.start()

@@ -1,0 +1,233 @@
+device,attack,intensity,average rtt,loss
+Smart TV,udp_flood,3000,4.125785953,0
+Smart TV,udp_flood,3500,4.00632107,0
+Smart TV,udp_flood,4000,4.790033445,0
+Smart TV,udp_flood,4500,4.993210702,0
+Smart TV,udp_flood,5000,5.47826087,0
+Smart TV,udp_flood,5500,5.661906355,0
+Smart TV,udp_flood,6000,6.365150502,0
+Smart TV,udp_flood,6500,6.271705686,0
+Smart TV,udp_flood,7000,5.626622074,0
+Smart TV,udp_flood,7500,5.826722408,0
+Smart TV,udp_flood,8000,5.595953177,0
+Smart TV,udp_flood,8500,5.630802676,0
+Smart TV,udp_flood,9000,6.0431,0
+Smart TV,udp_flood,9500,6.563166667,0
+Smart TV,udp_flood,10000,6.3614,0
+Smart TV,udp_flood,10500,2.579397993,0
+Smart TV,udp_flood,11000,6.935466667,0
+Smart TV,udp_flood,11500,6.635766667,0
+Smart TV,udp_flood,12000,6.920033333,0
+Smart TV,udp_flood,12500,7.819466667,0
+Smart TV,udp_flood,13000,6.624733333,0
+Smart TV,udp_flood,13500,7.475366667,0
+Smart TV,udp_flood,14000,8.319966667,0
+Smart TV,udp_flood,14500,7.618233333,0
+Smart TV,udp_flood,15000,7.725133333,0
+Smart TV,udp_flood,15500,8.587666667,0
+Smart TV,udp_flood,16000,9.0686,0
+Smart TV,udp_flood,16500,59.10616667,0.5566666667
+Smart TV,udp_flood,17000,100,1
+Smart TV,ack_flood,3000,6.14180602,0
+Smart TV,ack_flood,3500,6.457525084,0
+Smart TV,ack_flood,4000,7.159866221,0
+Smart TV,ack_flood,4500,7.339765886,0
+Smart TV,ack_flood,5000,7.168294314,0
+Smart TV,ack_flood,5500,10.68016722,0.006688963211
+Smart TV,ack_flood,6000,7.477885906,0
+Smart TV,ack_flood,6500,7.67722408,0
+Smart TV,ack_flood,7000,8.642976589,0
+Smart TV,ack_flood,7500,9.223779264,0
+Smart TV,ack_flood,8000,9.265183946,0
+Smart TV,ack_flood,8500,9.99722408,0
+Smart TV,ack_flood,9000,10.7448495,0
+Smart TV,ack_flood,9500,12.58685619,0
+Smart TV,ack_flood,10000,11.93083612,0
+Smart TV,ack_flood,10500,13.26976589,0
+Smart TV,ack_flood,11000,23.43227425,0.0635451505
+Smart TV,ack_flood,11500,24.87735786,0.05016722408
+Smart TV,ack_flood,12000,30.66391304,0.1170568562
+Smart TV,ack_flood,12500,65.31026756,0.4314381271
+Smart TV,ack_flood,13000,81.31795987,0.6889632107
+Smart TV,ack_flood,13500,91.41434783,0.8227424749
+Smart TV,ack_flood,14000,99.54327759,0.9899665552
+Smart TV,syn_flood,3000,5.185166667,0
+Smart TV,syn_flood,3500,6.052066667,0
+Smart TV,syn_flood,4000,6.5133,0
+Smart TV,syn_flood,4500,6.7114,0
+Smart TV,syn_flood,5000,7.688,0
+Smart TV,syn_flood,5500,7.0827,0
+Smart TV,syn_flood,6000,7.765833333,0
+Smart TV,syn_flood,6500,8.328,0
+Smart TV,syn_flood,7000,11.32483333,0.01
+Smart TV,syn_flood,7500,8.898933333,0
+Smart TV,syn_flood,8000,9.888966667,0
+Smart TV,syn_flood,8500,9.764666667,0
+Smart TV,syn_flood,9000,16.17633333,0.05666666667
+Smart TV,syn_flood,9500,12.07763333,0
+Smart TV,syn_flood,10000,13.10096667,0
+Smart TV,syn_flood,10500,15.43736667,0
+Smart TV,syn_flood,11000,14.8422,0
+Smart TV,syn_flood,11500,19.73433333,0
+Smart TV,syn_flood,12000,40.7256,0.21
+Smart TV,syn_flood,12500,73.71959866,0.5384615385
+Smart TV,syn_flood,13000,86.62343333,0.7133333333
+Smart TV,syn_flood,13500,98.211,0.9533333333
+Smart TV,syn_flood,14000,99.59443333,0.9933333333
+Smartphone 1,udp_flood,3000,2.3986,0
+Smartphone 1,udp_flood,3500,4.303366667,0.01333333333
+Smartphone 1,udp_flood,4000,2.392266667,0
+Smartphone 1,udp_flood,4500,2.4376,0
+Smartphone 1,udp_flood,5000,4.467333333,0.01333333333
+Smartphone 1,udp_flood,5500,2.772766667,0
+Smartphone 1,udp_flood,6000,2.7831,0
+Smartphone 1,udp_flood,6500,6.065033333,0.03
+Smartphone 1,udp_flood,7000,2.790633333,0
+Smartphone 1,udp_flood,7500,2.9647,0
+Smartphone 1,udp_flood,8000,5.4985,0.02333333333
+Smartphone 1,udp_flood,8500,2.874733333,0
+Smartphone 1,udp_flood,9000,3.0708,0
+Smartphone 1,udp_flood,9500,6.2823,0.03
+Smartphone 1,udp_flood,10000,2.861133333,0
+Smartphone 1,udp_flood,10500,3.0837,0
+Smartphone 1,udp_flood,11000,6.1429,0.02666666667
+Smartphone 1,udp_flood,11500,3.7769,0.006666666667
+Smartphone 1,udp_flood,12000,3.3655,0
+Smartphone 1,udp_flood,12500,6.043866667,0.02333333333
+Smartphone 1,udp_flood,13000,4.151733333,0.006666666667
+Smartphone 1,udp_flood,13500,38.12386667,0.2833333333
+Smartphone 1,udp_flood,14000,40.73263333,0.2933333333
+Smartphone 1,udp_flood,14500,33.33266667,0.2666666667
+Smartphone 1,udp_flood,15000,38.19576667,0.3066666667
+Smartphone 1,udp_flood,15500,44.8009,0.3266666667
+Smartphone 1,udp_flood,16000,69.70716667,0.56
+Smartphone 1,udp_flood,16500,98.90633333,0.96
+Smartphone 1,udp_flood,17000,74.69076667,0.51
+Smartphone 1,udp_flood,17500,98.9068,0.9533333333
+Smartphone 1,udp_flood,18000,98.8174,0.9433333333
+Smartphone 1,udp_flood,18500,99.1903,0.9666666667
+Smartphone 1,udp_flood,19000,99.502,0.9933333333
+Smartphone 1,ack_flood,3000,4.428160535,0
+Smartphone 1,ack_flood,3500,47.98906355,0.2173913043
+Smartphone 1,ack_flood,4000,12.85217391,0.03344481605
+Smartphone 1,ack_flood,4500,5.30916388,0
+Smartphone 1,ack_flood,5000,6.279799331,0
+Smartphone 1,ack_flood,5500,6.492842809,0
+Smartphone 1,ack_flood,6000,8.049531773,0
+Smartphone 1,ack_flood,6500,19.31789298,0.02341137124
+Smartphone 1,ack_flood,7000,12.87859532,0
+Smartphone 1,ack_flood,7500,19.12749164,0
+Smartphone 1,ack_flood,8000,32.83822742,0
+Smartphone 1,ack_flood,8500,36.36956522,0.006688963211
+Smartphone 1,ack_flood,9000,61.34391304,0.04682274247
+Smartphone 1,ack_flood,9500,79.30130435,0.27090301
+Smartphone 1,ack_flood,10000,86.40050167,0.474916388
+Smartphone 1,ack_flood,10500,92.28060201,0.6722408027
+Smartphone 1,ack_flood,11000,96.45293333,0.8366666667
+Smartphone 1,ack_flood,11500,99.43133333,0.98
+Smartphone 1,syn_flood,3000,5.154366667,0
+Smartphone 1,syn_flood,3500,5.547033333,0
+Smartphone 1,syn_flood,4000,5.2402,0
+Smartphone 1,syn_flood,4500,5.894233333,0
+Smartphone 1,syn_flood,5000,6.526833333,0
+Smartphone 1,syn_flood,5500,9.026566667,0
+Smartphone 1,syn_flood,6000,8.516333333,0
+Smartphone 1,syn_flood,6500,12.42173333,0
+Smartphone 1,syn_flood,7000,15.57046667,0.003333333333
+Smartphone 1,syn_flood,7500,25.01436667,0
+Smartphone 1,syn_flood,8000,36.08043333,0
+Smartphone 1,syn_flood,8500,45.46006689,0.01672240803
+Smartphone 1,syn_flood,9000,69.61892977,0.1070234114
+Smartphone 1,syn_flood,9500,85.86443333,0.4466666667
+Smartphone 1,syn_flood,10000,92.28036667,0.6633333333
+Smartphone 1,syn_flood,10500,99.6171,0.9933333333
+Smart Clock 1,udp_flood,3000,2.848327759,0
+Smart Clock 1,udp_flood,3500,2.477023411,0
+Smart Clock 1,udp_flood,4000,2.565083612,0
+Smart Clock 1,udp_flood,4500,7.591070234,0.04682274247
+Smart Clock 1,udp_flood,5000,2.833766667,0
+Smart Clock 1,udp_flood,5500,3.051003344,0
+Smart Clock 1,udp_flood,6000,30.77140468,0.1739130435
+Smart Clock 1,udp_flood,6500,94.817,0.9033333333
+Smart Clock 1,udp_flood,7000,98.43296667,0.97
+Smart Clock 1,udp_flood,7500,98.81056667,0.98
+Smart Clock 1,ack_flood,3000,26.01026756,0
+Smart Clock 1,ack_flood,3500,98.7387291,0.9765886288
+Smart Clock 1,ack_flood,4000,99.44326667,0.99
+Smart Clock 1,syn_flood,3000,19.39416667,0
+Smart Clock 1,syn_flood,3500,98.92863333,0.98
+Google Nest Mini 1,udp_flood,3000,2.028233333,0
+Google Nest Mini 1,udp_flood,3500,2.181333333,0
+Google Nest Mini 1,udp_flood,4000,2.5429,0
+Google Nest Mini 1,udp_flood,4500,2.307833333,0
+Google Nest Mini 1,udp_flood,5000,2.5204,0
+Google Nest Mini 1,udp_flood,5500,2.461,0
+Google Nest Mini 1,udp_flood,6000,2.656655518,0
+Google Nest Mini 1,udp_flood,6500,3.246755853,0
+Google Nest Mini 1,udp_flood,7000,3.033545151,0
+Google Nest Mini 1,udp_flood,7500,3.224548495,0
+Google Nest Mini 1,udp_flood,8000,3.412909699,0
+Google Nest Mini 1,udp_flood,8500,3.363210702,0
+Google Nest Mini 1,udp_flood,9000,3.437625418,0
+Google Nest Mini 1,udp_flood,9500,3.122976589,0
+Google Nest Mini 1,udp_flood,10000,3.136421405,0
+Google Nest Mini 1,udp_flood,10500,1.975050167,0
+Google Nest Mini 1,udp_flood,11000,3.641538462,0
+Google Nest Mini 1,udp_flood,11500,3.65083612,0
+Google Nest Mini 1,udp_flood,12000,2.144180602,0
+Google Nest Mini 1,udp_flood,12500,5.227966667,0.006666666667
+Google Nest Mini 1,udp_flood,13000,5.186433333,0
+Google Nest Mini 1,udp_flood,13500,5.639233333,0
+Google Nest Mini 1,udp_flood,14000,7.495733333,0
+Google Nest Mini 1,udp_flood,14500,8.055166667,0
+Google Nest Mini 1,udp_flood,15000,9.0578,0
+Google Nest Mini 1,udp_flood,15500,16.8445,0.01
+Google Nest Mini 1,udp_flood,16000,28.95906667,0.01666666667
+Google Nest Mini 1,udp_flood,16500,43.26803333,0.11
+Google Nest Mini 1,udp_flood,17000,97.6354,0.9166666667
+Google Nest Mini 1,udp_flood,17500,99.67256667,0.9966666667
+Google Nest Mini 1,ack_flood,3000,3.227826087,0
+Google Nest Mini 1,ack_flood,3500,3.390702341,0
+Google Nest Mini 1,ack_flood,4000,3.581973244,0
+Google Nest Mini 1,ack_flood,4500,3.577491639,0
+Google Nest Mini 1,ack_flood,5000,3.771036789,0
+Google Nest Mini 1,ack_flood,5500,4.113344482,0
+Google Nest Mini 1,ack_flood,6000,4.934414716,0
+Google Nest Mini 1,ack_flood,6500,4.65916388,0
+Google Nest Mini 1,ack_flood,7000,5.008494983,0
+Google Nest Mini 1,ack_flood,7500,5.263344482,0
+Google Nest Mini 1,ack_flood,8000,5.737090301,0
+Google Nest Mini 1,ack_flood,8500,6.072173913,0
+Google Nest Mini 1,ack_flood,9000,9.381404682,0.01003344482
+Google Nest Mini 1,ack_flood,9500,10.84103679,0
+Google Nest Mini 1,ack_flood,10000,31.87876254,0
+Google Nest Mini 1,ack_flood,10500,76.04324415,0.04682274247
+Google Nest Mini 1,ack_flood,11000,84.78006689,0.1003344482
+Google Nest Mini 1,ack_flood,11500,91.30695652,0.2909698997
+Google Nest Mini 1,ack_flood,12000,94.92080268,0.7424749164
+Google Nest Mini 1,ack_flood,12500,95.47337793,0.8260869565
+Google Nest Mini 1,ack_flood,13000,96.09765886,0.872909699
+Google Nest Mini 1,ack_flood,13500,98.11656667,0.9
+Google Nest Mini 1,ack_flood,14000,97.72491639,0.9130434783
+Google Nest Mini 1,ack_flood,14500,98.50513333,0.9466666667
+Google Nest Mini 1,ack_flood,15000,98.03443333,0.9366666667
+Google Nest Mini 1,ack_flood,15500,98.0578,0.9433333333
+Google Nest Mini 1,ack_flood,16000,99.097,0.97
+Google Nest Mini 1,ack_flood,16500,99.02688963,0.9698996656
+Google Nest Mini 1,ack_flood,17000,99.17204013,0.9698996656
+Google Nest Mini 1,ack_flood,17500,99.61698997,0.9933110368
+Google Nest Mini 1,syn_flood,3000,2.973233333,0
+Google Nest Mini 1,syn_flood,3500,3.306833333,0
+Google Nest Mini 1,syn_flood,4000,3.171866667,0
+Google Nest Mini 1,syn_flood,4500,3.505,0
+Google Nest Mini 1,syn_flood,5000,4.235666667,0
+Google Nest Mini 1,syn_flood,5500,4.0033,0
+Google Nest Mini 1,syn_flood,6000,4.362133333,0
+Google Nest Mini 1,syn_flood,6500,4.8298,0
+Google Nest Mini 1,syn_flood,7000,5.155066667,0
+Google Nest Mini 1,syn_flood,7500,5.598766667,0
+Google Nest Mini 1,syn_flood,8000,6.945266667,0
+Google Nest Mini 1,syn_flood,8500,6.2496,0
+Google Nest Mini 1,syn_flood,9000,9.598533333,0
+Google Nest Mini 1,syn_flood,9500,11.5616,0.003333333333
+Google Nest Mini 1,syn_flood,10000,99.38866667,0.9866666667
