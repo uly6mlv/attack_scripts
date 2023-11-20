@@ -7,7 +7,7 @@ from main import IP_DICT, TARGET_DICT, ATK_DICT
 target=[6]
 attacks=[9,5]
 
-
+# benign
 # with open('benign_response.csv','w') as f:
 #     f.write("device,average rtt,loss\n")
 #     for t in target:
@@ -16,7 +16,7 @@ attacks=[9,5]
 #         f.write(f"{TARGET_DICT[t]},{np.mean(rtt)},{percent_time}\n")
 
 
-
+#attacks
 # with open('attack_response.csv','w') as f:
 #     f.write("device,attack,intensity,average rtt,loss\n")
 #     for t in target:
@@ -33,5 +33,11 @@ attacks=[9,5]
 #                 #wait for flooding to finish
 #                 time.sleep(20)
 
-device, attack, rtt, percent_time=launch_attack(10, 6, pcap="../SmartTV_SYN_Flooding_iter_0.pcap", loop=1, time=30)
-print(device, attack, rtt, percent_time)
+
+# replay SmartTV_SYN_Flooding_iter_0
+device, attack, rtt, percent_time=launch_attack(10, 6, pcap="../attack/SmartTV_SYN_Flooding_iter_0.pcapng", loop=1, time=30)
+print(device, attack, np.mean(rtt), percent_time)
+
+
+# device, attack, rtt, percent_time=launch_attack(9, 6, pps=17000, time=30)
+# print(device, attack, np.mean(rtt), percent_time)
