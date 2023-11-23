@@ -54,6 +54,7 @@ def measure_response(duration, host_ip):
     # print(f"{percent_time*100:.3f}% non-responsive packets @ {response_time}")
     # print(f"average response time {np.mean(rtt)}ms")
     return rtt, percent_time
+
     
 if __name__=="__main__":
     print(measure_response(30, "192.168.0.131"))
